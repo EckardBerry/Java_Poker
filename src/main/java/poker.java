@@ -38,9 +38,8 @@ public class poker {
     }
 
 
-    static String four_of_a_kind(){
+    static String four_of_a_kind() {
         List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
-
         if (list.size() != random_suites.size()) {
             for (String s: random_cards) {
                 if (Collections.frequency(random_cards, s) == 4){
@@ -52,7 +51,7 @@ public class poker {
     }
 
 
-    static String full_house(){
+    static String full_house() {
         int add_up = 0;
         for (String s: random_cards){
             if (Collections.frequency(random_cards, s) == 2 || Collections.frequency(random_cards, s) == 3){
@@ -64,6 +63,31 @@ public class poker {
         }
         return null;
     }
+
+
+    static String flush() {
+        List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
+        if (list.size() == 1) {
+            return score.get(3);
+        }
+        return null;
+    }
+
+
+    static String three_of_a_kind() {
+        List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
+        if (list.size() != 1) {
+            for (String s: random_cards) {
+                if (Collections.frequency(random_cards, s) == 3) {
+                    return score.get(5);
+                }
+            }
+        }
+        return null;
+    }
+
+
+
 
 
     public static void main(String[] args) {
