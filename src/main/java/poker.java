@@ -1,8 +1,10 @@
-import java.util.*;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Collections;
+
 
 public class poker {
 
@@ -12,6 +14,7 @@ public class poker {
     static List<Character> suites = Arrays.asList('♥', '♠', '♦', '♣');
     static List<String> cards = Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A");
     static List<String> cards_rearranged = Arrays.asList("10", "J", "Q", "K", "A", "2", "3", "4", "5", "6", "7", "8", "9");
+    static List<String> functions = new ArrayList<>();
 
     static List<String> score = Arrays.asList("Straight Flush",
                                                 "Four of a Kind",
@@ -24,7 +27,7 @@ public class poker {
                                                 "High Card"
                                             );
 
-    static void draw() {
+    private static void draw() {
         for (int i = 1; i<= 5; i++) {
             Random rand = new Random();
             StringBuilder hand = new StringBuilder();
@@ -35,6 +38,32 @@ public class poker {
             hand.append(random_card_element.charAt(0)).append(random_suite_element);
             your_hand.add(hand.toString());
         }
+    }
+
+
+    private static String functions_caller() {
+        String four_kind = four_of_a_kind();
+        String full_house = full_house();
+        String flush = flush();
+        String three_kind = three_of_a_kind();
+        String two_pair = two_pair();
+        String one_pair = one_pair();
+        String high_card = high_card();
+
+        functions.add(four_kind);
+        functions.add(full_house);
+        functions.add(flush);
+        functions.add(three_kind);
+        functions.add(two_pair);
+        functions.add(one_pair);
+        functions.add(high_card);
+
+        for (String function: functions) {
+            if (function != null) {
+                return function;
+            }
+        }
+        return score.get(8);
     }
 
 
@@ -123,7 +152,7 @@ public class poker {
     }
 
 
-    static String high_card() {
+    private static String high_card() {
         return score.get(8);
     }
 
@@ -131,5 +160,6 @@ public class poker {
     public static void main(String[] args) {
         draw();
         System.out.println("Your hand: " + your_hand);
+        System.out.println(functions_caller());
     }
 }
