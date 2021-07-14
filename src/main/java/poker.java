@@ -87,6 +87,41 @@ public class poker {
     }
 
 
+    static String two_pair() {
+        List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
+        int add_up = 0;
+        String f_house = full_house();
+        if (list.size() != 1) {
+            for (String s: random_cards) {
+                if (Collections.frequency(random_cards, s) == 2) {
+                    add_up++;
+                }
+            if (f_house == null && add_up == 4) {
+                return score.get(6);
+                }
+            }
+        }
+        return null;
+    }
+
+
+    static String one_pair() {
+        List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
+        int add_up = 0;
+        String t_pair = two_pair();
+        if (list.size() != 1) {
+            for (String s: random_cards) {
+                if (Collections.frequency(random_cards, s) == 2) {
+                    add_up++;
+                }
+            if (t_pair == null && add_up == 2) {
+                return score.get(7);
+                }
+            }
+        }
+        return null;
+    }
+
 
 
 

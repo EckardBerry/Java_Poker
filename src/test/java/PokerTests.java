@@ -55,4 +55,32 @@ public class PokerTests {
         poker.random_cards = Arrays.asList("J", "J", "10", "J", "J");
         Assertions.assertNull(poker.three_of_a_kind());
     }
+
+    @Test
+    public void test_two_pair_passes() {
+        poker.random_suites = Arrays.asList('♥', '♠', '♦', '♣', '♣');
+        poker.random_cards = Arrays.asList("A", "7", "A", "2", "7");
+        Assertions.assertEquals(poker.score.get(6), poker.two_pair());
+    }
+
+    @Test
+    public void test_two_pair_fails() {
+        poker.random_suites = Arrays.asList('♥', '♠', '♦', '♣', '♣');
+        poker.random_cards = Arrays.asList("A", "7", "A", "7", "7");
+        Assertions.assertNull(poker.two_pair());
+    }
+
+    @Test
+    public void test_one_pair_passes() {
+        poker.random_suites = Arrays.asList('♥', '♠', '♦', '♣', '♣');
+        poker.random_cards = Arrays.asList("A", "K", "Q", "7", "K");
+        Assertions.assertEquals(poker.score.get(7), poker.one_pair());
+    }
+
+    @Test
+    public void test_one_pair_fails() {
+        poker.random_suites = Arrays.asList('♥', '♠', '♦', '♣', '♣');
+        poker.random_cards = Arrays.asList("7", "K", "Q", "7", "K");
+        Assertions.assertNull(poker.one_pair());
+    }
 }
