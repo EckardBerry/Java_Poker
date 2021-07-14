@@ -123,6 +123,9 @@ public class poker {
     }
 
 
+    static String high_card() {
+        return score.get(8);
+    }
 
 
     public static void main(String[] args) {
