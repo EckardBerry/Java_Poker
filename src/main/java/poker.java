@@ -41,32 +41,6 @@ public class poker {
     }
 
 
-    private static String functions_caller() {
-        String four_kind = four_of_a_kind();
-        String full_house = full_house();
-        String flush = flush();
-        String three_kind = three_of_a_kind();
-        String two_pair = two_pair();
-        String one_pair = one_pair();
-        String high_card = high_card();
-
-        functions.add(four_kind);
-        functions.add(full_house);
-        functions.add(flush);
-        functions.add(three_kind);
-        functions.add(two_pair);
-        functions.add(one_pair);
-        functions.add(high_card);
-
-        for (String function: functions) {
-            if (function != null) {
-                return function;
-            }
-        }
-        return score.get(8);
-    }
-
-
     static String four_of_a_kind() {
         List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
         if (list.size() != random_suites.size()) {
@@ -154,6 +128,65 @@ public class poker {
 
     private static String high_card() {
         return score.get(8);
+    }
+
+
+    private static String functions_caller() {
+        String s_flush = search_for_something_straightish();
+        String four_kind = four_of_a_kind();
+        String full_house = full_house();
+        String flush = flush();
+        String straight = search_for_something_straightish();
+        String three_kind = three_of_a_kind();
+        String two_pair = two_pair();
+        String one_pair = one_pair();
+        String high_card = high_card();
+
+        functions.add(s_flush);
+        functions.add(four_kind);
+        functions.add(full_house);
+        functions.add(flush);
+        functions.add(straight);
+        functions.add(three_kind);
+        functions.add(two_pair);
+        functions.add(one_pair);
+        functions.add(high_card);
+
+        for (String function: functions) {
+            if (function != null) {
+                return function;
+            }
+        }
+        return score.get(8);
+    }
+
+
+
+    static String straight_or_straight_flush() {
+        List<Character> rand_suites = random_suites.stream().distinct().collect(Collectors.toList());
+        List<String> rand_cards = random_cards.stream().distinct().collect(Collectors.toList());
+        if (rand_suites.size() == 1 && random_cards.size() == rand_cards.size()) {
+            return score.get(0);
+        }
+        if (rand_suites.size() != 1 && random_cards.size() == rand_cards.size()) {
+            return score.get(4);
+        }
+        return null;
+    }
+
+
+    static String search_for_something_straightish() {
+        for (int i = 0; i <= cards_rearranged.size() - 5; i++) {
+            List<String> sub_list_one = cards.subList(i, i+5);
+            List<String> sub_list_two = cards_rearranged.subList(i, i+5);
+            if (sub_list_one.containsAll(random_cards)) {
+                return straight_or_straight_flush();
+            }
+            if (sub_list_two.containsAll(random_cards)) {
+                return straight_or_straight_flush();
+            }
+        }
+        return null;
     }
 
 

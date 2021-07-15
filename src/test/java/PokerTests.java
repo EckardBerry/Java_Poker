@@ -83,4 +83,32 @@ public class PokerTests {
         poker.random_cards = Arrays.asList("7", "K", "Q", "7", "K");
         Assertions.assertNull(poker.one_pair());
     }
+
+    @Test
+    public void test_search_for_straigh_flush_passes() {
+        poker.random_suites = Arrays.asList('♥', '♥', '♥', '♥', '♥');
+        poker.random_cards = Arrays.asList("A", "2", "3", "4", "5");
+        Assertions.assertEquals(poker.score.get(0), poker.search_for_something_straightish());
+    }
+
+    @Test
+    public void test_search_for_straigh_flush_fails() {
+        poker.random_suites = Arrays.asList('♥', '♥', '♥', '♥', '♥');
+        poker.random_cards = Arrays.asList("A", "2", "2", "A", "A");
+        Assertions.assertNull(poker.search_for_something_straightish());
+    }
+
+    @Test
+    public void test_search_for_straigh_passes() {
+        poker.random_suites = Arrays.asList('♥', '♠', '♦', '♣', '♣');
+        poker.random_cards = Arrays.asList("Q", "10", "K", "J", "A");
+        Assertions.assertEquals(poker.score.get(4), poker.search_for_something_straightish());
+    }
+
+    @Test
+    public void test_search_for_straight_fails() {
+        poker.random_suites = Arrays.asList('♥', '♥', '♥', '♥', '♥');
+        poker.random_cards = Arrays.asList("Q", "10", "K", "5", "A");
+        Assertions.assertNull(poker.search_for_something_straightish());
+    }
 }
