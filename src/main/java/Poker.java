@@ -39,7 +39,7 @@ public class Poker {
             String random_card_element = cards.get(random_num(cards.toArray()));
             random_suites.add(random_suite_element);
             random_cards.add(random_card_element);
-            hand.append(random_card_element.charAt(0)).append(random_suite_element);
+            hand.append(random_card_element).append(random_suite_element);
             your_hand.add(hand.toString());
         }
         return your_hand;
