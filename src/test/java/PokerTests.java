@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 public class PokerTests {
-    poker game = new poker();
+    Poker game = new Poker();
 
     @Test
     public void test_four_of_a_kind_passes() {

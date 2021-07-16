@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.Collections;
 
 
-public class poker {
+public class Poker {
 
     private final List<String> your_hand = new ArrayList<>();
     public List<Character> random_suites = new ArrayList<>();
