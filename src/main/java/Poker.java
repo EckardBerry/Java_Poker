@@ -1,7 +1,7 @@
 import java.util.Arrays;
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.Collections;
 
@@ -26,12 +26,17 @@ public class Poker {
                                                 "High Card"
                                             );
 
+
+    public int random_num(Object[] list) {
+        return ThreadLocalRandom.current().nextInt(list.length) % list.length;
+    }
+
+
     public List<String> draw() {
-        for (int i = 1; i<= 5; i++) {
-            Random rand = new Random();
+        for (int i = 1; i <= 5; i++) {
             StringBuilder hand = new StringBuilder();
-            Character random_suite_element = suites.get(rand.nextInt(suites.size()));
-            String random_card_element = cards.get(rand.nextInt(cards.size()));
+            Character random_suite_element = suites.get(random_num(suites.toArray()));
+            String random_card_element = cards.get(random_num(cards.toArray()));
             random_suites.add(random_suite_element);
             random_cards.add(random_card_element);
             hand.append(random_card_element.charAt(0)).append(random_suite_element);
@@ -39,6 +44,7 @@ public class Poker {
         }
         return your_hand;
     }
+
 
 
     public String search_for_something_straightish() {
