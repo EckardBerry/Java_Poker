@@ -46,7 +46,6 @@ public class Poker {
     }
 
 
-
     public String search_for_something_straightish() {
         for (int i = 0; i <= cards_rearranged.size() - 5; i++) {
             List<String> sub_list_one = cards.subList(i, i+5);
