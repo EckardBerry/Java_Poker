@@ -19,7 +19,6 @@ public class PokerTests {
         Assertions.assertNull(game.four_of_a_kind());
     }
 
-
     @Test
     public void test_full_house_passes() {
         game.random_cards = Arrays.asList("4", "4", "4", "2", "2");
