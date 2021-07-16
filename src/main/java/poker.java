@@ -8,15 +8,14 @@ import java.util.Collections;
 
 public class poker {
 
-    static List<String> your_hand = new ArrayList<>();
-    static List<Character> random_suites = new ArrayList<>();
-    static List<String> random_cards = new ArrayList<>();
-    static List<Character> suites = Arrays.asList('♥', '♠', '♦', '♣');
-    static List<String> cards = Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A");
-    static List<String> cards_rearranged = Arrays.asList("10", "J", "Q", "K", "A", "2", "3", "4", "5", "6", "7", "8", "9");
-    static List<String> functions = new ArrayList<>();
-
-    static List<String> score = Arrays.asList("Straight Flush",
+    private final List<String> your_hand = new ArrayList<>();
+    public List<Character> random_suites = new ArrayList<>();
+    public List<String> random_cards = new ArrayList<>();
+    private final List<Character> suites = Arrays.asList('♥', '♠', '♦', '♣');
+    private final List<String> cards = Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A");
+    private final List<String> cards_rearranged = Arrays.asList("10", "J", "Q", "K", "A", "2", "3", "4", "5", "6", "7", "8", "9");
+    public List<String> functions = new ArrayList<>();
+    public List<String> score = Arrays.asList("Straight Flush",
                                                 "Four of a Kind",
                                                 "Full House",
                                                 "Flush",
@@ -27,7 +26,7 @@ public class poker {
                                                 "High Card"
                                             );
 
-    private static void draw() {
+    public List<String> draw() {
         for (int i = 1; i<= 5; i++) {
             Random rand = new Random();
             StringBuilder hand = new StringBuilder();
@@ -38,10 +37,39 @@ public class poker {
             hand.append(random_card_element.charAt(0)).append(random_suite_element);
             your_hand.add(hand.toString());
         }
+        return your_hand;
     }
 
 
-    static String four_of_a_kind() {
+    public String search_for_something_straightish() {
+        for (int i = 0; i <= cards_rearranged.size() - 5; i++) {
+            List<String> sub_list_one = cards.subList(i, i+5);
+            List<String> sub_list_two = cards_rearranged.subList(i, i+5);
+            if (sub_list_one.containsAll(random_cards)) {
+                return straight_or_straight_flush();
+            }
+            if (sub_list_two.containsAll(random_cards)) {
+                return straight_or_straight_flush();
+            }
+        }
+        return null;
+    }
+
+
+    public String straight_or_straight_flush() {
+        List<Character> rand_suites = random_suites.stream().distinct().collect(Collectors.toList());
+        List<String> rand_cards = random_cards.stream().distinct().collect(Collectors.toList());
+        if (rand_suites.size() == 1 && random_cards.size() == rand_cards.size()) {
+            return score.get(0);
+        }
+        if (rand_suites.size() != 1 && random_cards.size() == rand_cards.size()) {
+            return score.get(4);
+        }
+        return null;
+    }
+
+
+    public String four_of_a_kind() {
         List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
         if (list.size() != random_suites.size()) {
             for (String s: random_cards) {
@@ -54,7 +82,7 @@ public class poker {
     }
 
 
-    static String full_house() {
+    public String full_house() {
         int add_up = 0;
         for (String s: random_cards){
             if (Collections.frequency(random_cards, s) == 2 || Collections.frequency(random_cards, s) == 3){
@@ -68,7 +96,7 @@ public class poker {
     }
 
 
-    static String flush() {
+    public String flush() {
         List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
         if (list.size() == 1) {
             return score.get(3);
@@ -77,7 +105,7 @@ public class poker {
     }
 
 
-    static String three_of_a_kind() {
+    public String three_of_a_kind() {
         List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
         if (list.size() != 1) {
             for (String s: random_cards) {
@@ -90,7 +118,7 @@ public class poker {
     }
 
 
-    static String two_pair() {
+    public String two_pair() {
         List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
         int add_up = 0;
         String f_house = full_house();
@@ -108,7 +136,7 @@ public class poker {
     }
 
 
-    static String one_pair() {
+    public String one_pair() {
         List<Character> list = random_suites.stream().distinct().collect(Collectors.toList());
         int add_up = 0;
         String t_pair = two_pair();
@@ -126,12 +154,12 @@ public class poker {
     }
 
 
-    private static String high_card() {
+    private String high_card() {
         return score.get(8);
     }
 
 
-    private static String functions_caller() {
+    public String functions_caller() {
         String s_flush = search_for_something_straightish();
         String four_kind = four_of_a_kind();
         String full_house = full_house();
@@ -158,41 +186,5 @@ public class poker {
             }
         }
         return score.get(8);
-    }
-
-
-
-    static String straight_or_straight_flush() {
-        List<Character> rand_suites = random_suites.stream().distinct().collect(Collectors.toList());
-        List<String> rand_cards = random_cards.stream().distinct().collect(Collectors.toList());
-        if (rand_suites.size() == 1 && random_cards.size() == rand_cards.size()) {
-            return score.get(0);
-        }
-        if (rand_suites.size() != 1 && random_cards.size() == rand_cards.size()) {
-            return score.get(4);
-        }
-        return null;
-    }
-
-
-    static String search_for_something_straightish() {
-        for (int i = 0; i <= cards_rearranged.size() - 5; i++) {
-            List<String> sub_list_one = cards.subList(i, i+5);
-            List<String> sub_list_two = cards_rearranged.subList(i, i+5);
-            if (sub_list_one.containsAll(random_cards)) {
-                return straight_or_straight_flush();
-            }
-            if (sub_list_two.containsAll(random_cards)) {
-                return straight_or_straight_flush();
-            }
-        }
-        return null;
-    }
-
-
-    public static void main(String[] args) {
-        draw();
-        System.out.println("Your hand: " + your_hand);
-        System.out.println(functions_caller());
     }
 }
