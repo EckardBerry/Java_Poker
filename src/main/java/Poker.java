@@ -27,7 +27,7 @@ public class Poker {
                                             );
 
 
-    public int random_num(Object[] list) {
+    public int random_num(@org.jetbrains.annotations.NotNull Object[] list) {
         return ThreadLocalRandom.current().nextInt(list.length) % list.length;
     }
 
