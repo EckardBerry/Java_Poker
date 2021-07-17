@@ -50,10 +50,7 @@ public class Poker {
         for (int i = 0; i <= cards_rearranged.size() - 5; i++) {
             List<String> sub_list_one = cards.subList(i, i+5);
             List<String> sub_list_two = cards_rearranged.subList(i, i+5);
-            if (sub_list_one.containsAll(random_cards)) {
-                return straight_or_straight_flush();
-            }
-            if (sub_list_two.containsAll(random_cards)) {
+            if (sub_list_one.containsAll(random_cards) || sub_list_two.containsAll(random_cards)) {
                 return straight_or_straight_flush();
             }
         }
